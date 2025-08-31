@@ -11,7 +11,7 @@
             background-color: #f4f7f6;
             color: #333;
             margin: 0;
-            padding: 1rem; /* Use responsive padding */
+            padding: 1rem;
             user-select: none;
             box-sizing: border-box;
         }
@@ -45,10 +45,9 @@
             border-color: #3498db;
         }
         
-        /* --- UPDATED: Sizing and Layout --- */
         .main-container {
-            max-width: 500px; /* Made the component smaller */
-            width: 100%;      /* Ensures it shrinks on smaller screens */
+            max-width: 500px;
+            width: 100%;
             margin: 0 auto;
             box-sizing: border-box;
         }
@@ -104,38 +103,56 @@
             margin-bottom: 5px;
             font-size: 14px;
         }
-        .delete-btn, .save-btn {
+        .delete-btn {
+            cursor: pointer;
+            border: none;
+            border-radius: 50%;
+            background-color: #c0392b;
+            color: white;
+            font-weight: bold;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+        }
+
+        /* --- NEW: Button Group and Load Button Styles --- */
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .action-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
             cursor: pointer;
             border: none;
             border-radius: 5px;
             color: white;
             font-weight: bold;
-        }
-        .delete-btn {
-            background-color: #c0392b;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            line-height: 20px;
+            transition: background-color 0.2s;
         }
         .save-btn {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            margin-top: 15px;
-            font-size: 16px;
             background-color: #27ae60;
-            transition: background-color 0.2s;
         }
         .save-btn:hover {
             background-color: #2ecc71;
         }
+        .load-btn {
+            background-color: #8e44ad;
+        }
+        .load-btn:hover {
+            background-color: #9b59b6;
+        }
+
     </style>
 </head>
 <body>
 
     <h1>Body Part Annotation Tool</h1>
-    <p>Click and drag on an image to select an area.</p>
+    <p>Click and drag on an image to select an area. Use the buttons to save or load annotations.</p>
 
     <div class="nav-buttons">
         <button data-target="male-front-wrapper" class="active">Male - Front</button>
@@ -147,41 +164,61 @@
     </div>
 
     <div class="main-container">
+        <input type="file" id="json-file-loader" style="display: none;" accept="application/json">
+
         <div class="figure-wrapper active" id="male-front-wrapper">
             <h2>Male - Front View</h2>
             <div class="image-container" id="male-front"><img src="images/male_front.png" alt="Male Front View"></div>
             <div class="annotation-list" id="list-male-front"></div>
-            <button class="save-btn" data-imageid="male-front">Save JSON</button>
+            <div class="button-group">
+                <button class="load-btn action-btn" data-imageid="male-front">Load JSON</button>
+                <button class="save-btn action-btn" data-imageid="male-front">Save JSON</button>
+            </div>
         </div>
         <div class="figure-wrapper" id="male-side-wrapper">
             <h2>Male - Side View</h2>
             <div class="image-container" id="male-side"><img src="images/male_side.png" alt="Male Side View"></div>
             <div class="annotation-list" id="list-male-side"></div>
-            <button class="save-btn" data-imageid="male-side">Save JSON</button>
+            <div class="button-group">
+                <button class="load-btn action-btn" data-imageid="male-side">Load JSON</button>
+                <button class="save-btn action-btn" data-imageid="male-side">Save JSON</button>
+            </div>
         </div>
         <div class="figure-wrapper" id="male-back-wrapper">
             <h2>Male - Back View</h2>
             <div class="image-container" id="male-back"><img src="images/male_back.png" alt="Male Back View"></div>
             <div class="annotation-list" id="list-male-back"></div>
-            <button class="save-btn" data-imageid="male-back">Save JSON</button>
+            <div class="button-group">
+                <button class="load-btn action-btn" data-imageid="male-back">Load JSON</button>
+                <button class="save-btn action-btn" data-imageid="male-back">Save JSON</button>
+            </div>
         </div>
         <div class="figure-wrapper" id="female-front-wrapper">
             <h2>Female - Front View</h2>
             <div class="image-container" id="female-front"><img src="images/female_front.png" alt="Female Front View"></div>
             <div class="annotation-list" id="list-female-front"></div>
-            <button class="save-btn" data-imageid="female-front">Save JSON</button>
+            <div class="button-group">
+                <button class="load-btn action-btn" data-imageid="female-front">Load JSON</button>
+                <button class="save-btn action-btn" data-imageid="female-front">Save JSON</button>
+            </div>
         </div>
         <div class="figure-wrapper" id="female-side-wrapper">
             <h2>Female - Side View</h2>
             <div class="image-container" id="female-side"><img src="images/female_side.png" alt="Female Side View"></div>
             <div class="annotation-list" id="list-female-side"></div>
-            <button class="save-btn" data-imageid="female-side">Save JSON</button>
+            <div class="button-group">
+                <button class="load-btn action-btn" data-imageid="female-side">Load JSON</button>
+                <button class="save-btn action-btn" data-imageid="female-side">Save JSON</button>
+            </div>
         </div>
         <div class="figure-wrapper" id="female-back-wrapper">
             <h2>Female - Back View</h2>
             <div class="image-container" id="female-back"><img src="images/female_back.png" alt="Female Back View"></div>
             <div class="annotation-list" id="list-female-back"></div>
-            <button class="save-btn" data-imageid="female-back">Save JSON</button>
+            <div class="button-group">
+                <button class="load-btn action-btn" data-imageid="female-back">Load JSON</button>
+                <button class="save-btn action-btn" data-imageid="female-back">Save JSON</button>
+            </div>
         </div>
     </div>
 
@@ -190,6 +227,8 @@
         const navButtons = document.querySelectorAll('.nav-buttons button');
         const figureWrappers = document.querySelectorAll('.figure-wrapper');
         const mainContainer = document.querySelector('.main-container');
+        const jsonFileLoader = document.getElementById('json-file-loader'); // NEW
+        let activeImageIdForLoad = null; // NEW
 
         navButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -238,6 +277,50 @@
             a.href = url; a.download = `${imageId}_annotations.json`;
             document.body.appendChild(a); a.click();
             document.body.removeChild(a); URL.revokeObjectURL(url);
+        };
+        
+        // --- NEW: Function to load annotations from a file ---
+        const loadAnnotationsFromFile = (file) => {
+            if (!file || !activeImageIdForLoad) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const loadedData = JSON.parse(e.target.result);
+                    // Basic validation
+                    if (typeof loadedData !== 'object' || loadedData === null) {
+                        throw new Error("File content is not a valid JSON object.");
+                    }
+                    // More specific validation (optional)
+                    for (const key in loadedData) {
+                        const item = loadedData[key];
+                        if (typeof item.x !== 'number' || typeof item.y !== 'number' || typeof item.width !== 'number' || typeof item.height !== 'number') {
+                           throw new Error(`Annotation for "${key}" has an invalid format.`);
+                        }
+                    }
+
+                    if (Object.keys(annotations[activeImageIdForLoad]).length > 0) {
+                        if (!confirm('This will replace current annotations for this view. Continue?')) {
+                            return; // User cancelled
+                        }
+                    }
+                    
+                    annotations[activeImageIdForLoad] = loadedData;
+                    renderAnnotations(activeImageIdForLoad);
+                    alert('Annotations loaded successfully!');
+
+                } catch (error) {
+                    alert(`Error: Could not load annotations. ${error.message}`);
+                } finally {
+                    jsonFileLoader.value = null; // Reset file input
+                    activeImageIdForLoad = null;
+                }
+            };
+            reader.onerror = () => {
+                alert('An error occurred while reading the file.');
+                jsonFileLoader.value = null; // Reset file input
+                activeImageIdForLoad = null;
+            };
+            reader.readAsText(file);
         };
 
         let isDrawing = false;
@@ -325,6 +408,17 @@
                 }
             } else if (event.target.classList.contains('save-btn')) {
                 saveAnnotationsAsJson(event.target.dataset.imageid);
+            } else if (event.target.classList.contains('load-btn')) { // NEW
+                activeImageIdForLoad = event.target.dataset.imageid;
+                jsonFileLoader.click(); // Trigger the hidden file input
+            }
+        });
+
+        // NEW: Event listener for the file input
+        jsonFileLoader.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                loadAnnotationsFromFile(file);
             }
         });
     });
